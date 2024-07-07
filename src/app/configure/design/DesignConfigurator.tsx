@@ -27,11 +27,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, ChevronsUpDown } from "lucide-react";
+import { ArrowRight, Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { BASE_PRICE } from "@/config/products";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useToast } from "@/components/ui/use-toast";
-
+import { useMutation } from "@tanstack/react-query";
+import { saveConfigArgs, saveConfig as _saveConfig } from "./actions";
+import { useRouter } from "next/navigation";
 
 interface DesignConfigProps {
   configId: string;
@@ -47,8 +49,29 @@ const DesignConfigurator = ({
   imageUrl,
   imageDimensions,
 }: DesignConfigProps) => {
+  const { toast } = useToast();
+  const router = useRouter();
+  const [isUploading, setIsUploading] = useState(false);
 
-const { toast } = useToast();
+  const { mutate: saveConfig } = useMutation({
+    mutationKey: ["save-config"],
+    mutationFn: async (args: saveConfigArgs) => {
+      setIsUploading(true);
+      await Promise.all([saveConfiguration(), _saveConfig(args)]);
+    },
+    onError: () => {
+      setIsUploading(false);
+      toast({
+        title: "Something went wrong",
+        description: "There was a problem on our end, Please try again.",
+        variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      router.push(`/configure/preview?id=${configId}`);
+      setIsUploading(false);
+    },
+  });
 
   const [options, setOptions] = useState<{
     color: (typeof COLORS)[number];
@@ -76,7 +99,7 @@ const { toast } = useToast();
 
   const { startUpload } = useUploadThing("imageUploader");
 
-  async function saveConfig() {
+  async function saveConfiguration() {
     try {
       const {
         left: caseLeft,
@@ -384,8 +407,25 @@ const { toast } = useToast();
                     100
                 )}
               </p>
-              <Button size="sm" className="w-full" onClick={saveConfig}>
-                Continue <ArrowRight className="size-4 ml-1.5 inline" />
+              <Button
+                size="sm"
+                className="w-full"
+                onClick={() =>
+                  saveConfig({
+                    configId,
+                    color: options.color.value,
+                    finish: options.finish.value,
+                    material: options.material.value,
+                    model: options.model.value,
+                  })
+                }
+              >
+                Continue{" "}
+                {isUploading ? (
+                  <Loader2 className="size-4 ml-1.5 inline animate-spin" />
+                ) : (
+                  <ArrowRight className="size-4 ml-1.5 inline" />
+                )}
               </Button>
             </div>
           </div>
