@@ -408,6 +408,7 @@ const DesignConfigurator = ({
                 )}
               </p>
               <Button
+              disabled={isUploading}
                 size="sm"
                 className="w-full"
                 onClick={() =>
