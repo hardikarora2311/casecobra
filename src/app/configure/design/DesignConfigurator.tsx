@@ -12,7 +12,7 @@ import {
   Label as LabelRadio,
   Description,
 } from "@headlessui/react";
-import { use, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   COLORS,
   FINISHES,

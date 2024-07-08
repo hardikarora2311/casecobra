@@ -3,7 +3,6 @@
 //bg-rose-950 border-rose-950
 
 import { PRODUCT_PRICES } from "@/config/products";
-import { Description } from "@radix-ui/react-toast";
 
 export const COLORS = [
   { label: "Black", value: "black", tw: "zinc-900" },
