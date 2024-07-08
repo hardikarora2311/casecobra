@@ -19,7 +19,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   const [showConfetti, setShowConfetti] = useState(false);
   const { id } = configuration;
 
-  useEffect(() => setShowConfetti(true));
+  useEffect(() => setShowConfetti(true), []);
   const { toast } = useToast();
 
   const router = useRouter();
