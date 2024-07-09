@@ -41,5 +41,6 @@ export function constructMetaData({
       creator: "@HardikA2311_",
     },
     icons,
+    metadataBase: new URL("https://casecobra-live.vercel.app/"),
   };
 }
