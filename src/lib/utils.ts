@@ -19,11 +19,13 @@ export function constructMetaData({
   description = "Create custom high-quality phone cases in seconds. Upload your image, choose your case type, and get your case delivered in 3-5 days.",
   image = "/thumbnail.png",
   icons = "/favicon.ico",
+  noIndex = false,
 }: {
   title?: string;
   description?: string;
   image?: string;
   icons?: string;
+  noIndex?: boolean;
 } = {}): Metadata {
   return {
     title,
@@ -41,6 +43,12 @@ export function constructMetaData({
       creator: "@HardikA2311_",
     },
     icons,
-    metadataBase: new URL("https://casecobra-live.vercel.app/"),
+    metadataBase: new URL("https://casecobra-live.vercel.app"),
+    ...(noIndex && {
+      robots: {
+        index: false,
+        follow: false,
+      },
+    }),
   };
 }
