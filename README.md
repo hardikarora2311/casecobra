@@ -52,4 +52,8 @@ This repository is dedicated to CaseCobra, a  web-app that allows users to desig
 
 ![Thankyou](/public/screenshots/casecobra-6.png)
 
+**Dashboard Page:**
+
+![Dashboard](/public/screenshots/casecobra-7.png)
+
 **Live:** [CaseCobra](https://casecobra-live.vercel.app)
