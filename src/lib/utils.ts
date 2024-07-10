@@ -39,7 +39,7 @@ export function constructMetaData({
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      images: ["https://casecobra-live.vercel.app/thumbnail.png"],
       creator: "@HardikA2311_",
     },
     icons,
