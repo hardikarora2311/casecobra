@@ -132,28 +132,29 @@ const Page = async () => {
                 <TableHead className="text-right">Amount</TableHead>
               </TableRow>
             </TableHeader>
-            {orders.map((order) => (
-              <TableRow key={order.id} className="bg-accent">
-                <TableCell>
-                  <div className="font-medium">
-                    {order.shippingAddress?.name}
-                  </div>
-                  <div className="hidden text-sm text-muted-foreground sm:inline">
-                    {order.user?.email}
-                  </div>
-                </TableCell>
-                <TableCell className="hidden sm:table-cell">
-                  <StatusDropdown id={order.id} orderStatus={order.status} />
-                </TableCell>
-                <TableCell className="hidden md:table-cell">
-                  {order.createdAt.toLocaleDateString()}
-                </TableCell>
-                <TableCell className="text-right">
-                  {formatPrice(order.amount)}
-                </TableCell>
-              </TableRow>
-            ))}
-            <TableBody></TableBody>
+            <TableBody>
+              {orders.map((order) => (
+                <TableRow key={order.id} className="bg-accent">
+                  <TableCell>
+                    <div className="font-medium">
+                      {order.shippingAddress?.name}
+                    </div>
+                    <div className="hidden text-sm text-muted-foreground sm:inline">
+                      {order.user?.email}
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    <StatusDropdown id={order.id} orderStatus={order.status} />
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    {order.createdAt.toLocaleDateString()}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {formatPrice(order.amount)}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
           </Table>
         </div>
       </div>
